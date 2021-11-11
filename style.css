@@ -15,6 +15,7 @@ body{
     margin: auto;
     position: relative;
     background-color: white;
+    border-radius:5px;
 }
 .screen{
     height: 35%;
@@ -24,13 +25,17 @@ body{
 .history{
     padding: 50px 20px 0 0;
     height: 50%;
-    font-size: 20px;
+    font-size: 30px;
+    color:gray;
 
 }
 .result{
+    width: 400px;
+    overflow:auto;
     padding-right: 20px;
     height: 50%;
     font-size: 50px;
+
 }
 .keyboards{
     display: flex;
@@ -38,13 +43,12 @@ body{
     height: 65%; 
 }
 .number, .operator{
-    margin: 1%;
-    width:23%;
+    width:25%;
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
 }
 .operator:nth-child(18), .number:nth-child(17){
-    width: 48%;
+    width: 50%;
 }
 

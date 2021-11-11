@@ -10,45 +10,49 @@ const getResult = ()=>{
     return document.querySelector('.result').innerHTML;
 }
 const setResult = (num)=>{
-    if(num==""){
-		document.querySelector(".result").innerHTML=num;
+    if(num=="."){
+		document.querySelector(".result").innerHTML='';
 	} else {
-        document.querySelector('.result').innerHTML=getFormatedNumber(num);
+        document.querySelector('.result').innerHTML=num;
     }
     
-}
-
-
-//fungsi untuk membuat koma pada inputan number
-const getFormatedNumber=(num)=>{
-    if(num=="-"){
-        return "";
-    }
-    var n = Number(num);
-	var value = n.toLocaleString("en");
-	return value;
-}
-
-//variabel fungsi untuk menghilangkan karakter string dalam number
-const normalNumberFormat=(num)=>{
-    return Number(num.replace(/,/g,''));
 }
 
 //seleksi elemen number dan operator
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 
+//event number click
+numbers.forEach((number)=>{
+    number.addEventListener('click',(event)=>{
+        let val=number.innerHTML;
+        let output=getResult();
+        if(val=='.'){
+            if(isNaN(output[output.length-1])){
+                output= output.substr(0,output.length-1);
+            }
+
+        }
+        if(output!=NaN){
+            output=output+val;
+            setResult(output);
+        }  
+    })
+})
 //event operator click
 operators.forEach((operator)=>{
-    operator.addEventListener('click',()=>{
+    operator.addEventListener('click',(event)=>{
         let val=operator.innerHTML;
         let op=val.replace(/x/g,"*");
+        if(val=="÷"){
+            op=val.replace(/÷/g,"/");
+        }
         if(op=="C"){
             setHistory("");
             setResult("");
         }
         else if(op=="CE"){
-            let output=normalNumberFormat(getResult()).toString();
+            let output=getResult().toString();
             if(output){
                 output=output.substr(0, output.length-1);
                 setResult(output);
@@ -63,9 +67,10 @@ operators.forEach((operator)=>{
                 }
             }
             if(output!="" || history!=""){
-                output= output==""?output:normalNumberFormat(output);
+                output= output==""?output:output;
                 history=history+output;
-                if(op=="="){
+                if(op=="=" && history!=""){
+                    //menghitung operasi menggunakan method eval dari value yang disimpan dihistori
                     let sum=eval(history);
                     setResult(sum);
                     setHistory("");
@@ -79,17 +84,5 @@ operators.forEach((operator)=>{
             
         }
         
-    })
-})
-//event number click
-numbers.forEach((number)=>{
-    number.addEventListener('click',(event)=>{
-        let val=number.innerHTML;
-        let output=normalNumberFormat(getResult());
-        if(output!=NaN){
-            output=output+val;
-            setResult(output);
-        }
-       
     })
 })
