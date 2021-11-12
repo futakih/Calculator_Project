@@ -40,7 +40,7 @@ numbers.forEach((number)=>{ //mengambil setiap elemen pada kelas number
         if(output!=NaN){ //mencagah nilai Nan untuk diinputkan
             output=output+val;
             setResult(output);
-        }  
+        }
     })
 })
 //event operator click
@@ -69,6 +69,7 @@ operators.forEach((operator)=>{
             //ketika button operasi lainnya diclik
             let output=getResult(); 
             let history=getHistory();
+            
             //percabangan untuk mencegah operasi diinputkan berurutan
             if(output==""&&history!=""){
                 if(isNaN(history[history.length-1])){
